@@ -1,5 +1,9 @@
 load("//dependencies/vaticle:repositories.bzl", "vaticle_dependencies")
 vaticle_dependencies()
+#local_repository(
+#    name = "vaticle_dependencies",
+#    path = "/home/vmax/work/vaticle/dependencies",
+#)
 
 # Load //builder/rust
 load("@vaticle_dependencies//builder/rust:deps.bzl", rust_deps = "deps")
@@ -50,6 +54,33 @@ http_archive(
 cc_import(
     name = "lib",
     shared_library = "lib/libortools.dylib",
+    visibility = ["//visibility:public"]
+)
+cc_library(
+   name = "incl",
+   hdrs = glob([
+       "include/ortools/**/*.h",
+       "include/absl/**/*.h",
+       "include/absl/**/*.inc",
+       "include/google/protobuf/**/*.inc",
+       "include/google/protobuf/**/*.h",
+   ]),
+   strip_include_prefix = "include/",
+   visibility = ["//visibility:public"]
+)
+"""
+)
+
+http_archive(
+        name = "or_tools_windows",
+        urls = ["https://github.com/google/or-tools/releases/download/v9.0/or-tools_VisualStudio2019-64bit_v9.0.9048.zip"],
+        strip_prefix = "or-tools_VisualStudio2019-64bit_v9.0.9048/",
+        sha256 = "1be7286e082ba346f8729a873c5fd85418ac2dc95b847d9baa5381c5ac5f5fd9",
+        build_file_content =
+"""
+cc_import(
+    name = "lib",
+    shared_library = "lib/ortools.lib",
     visibility = ["//visibility:public"]
 )
 cc_library(

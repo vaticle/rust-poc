@@ -14,6 +14,10 @@ cc_library(
            "@or_tools_linux//:lib",
            "@or_tools_linux//:incl",
         ],
+        "@vaticle_dependencies//util/platform:is_windows": [
+           "@or_tools_windows//:lib",
+           "@or_tools_windows//:incl",
+        ],
     })
 )
 
@@ -28,6 +32,10 @@ rust_cxx_bridge(
        "@vaticle_dependencies//util/platform:is_linux": [
            "@or_tools_linux//:lib",
            "@or_tools_linux//:incl",
+        ],
+        "@vaticle_dependencies//util/platform:is_windows": [
+           "@or_tools_windows//:lib",
+           "@or_tools_windows//:incl",
         ],
     }) + [":bridge-wrapper"],
 )
