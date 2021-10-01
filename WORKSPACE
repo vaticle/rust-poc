@@ -80,7 +80,7 @@ http_archive(
 """
 cc_import(
     name = "lib",
-    shared_library = "lib/ortools.lib",
+    static_library = "lib/ortools.lib",
     visibility = ["//visibility:public"]
 )
 cc_library(
