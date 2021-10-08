@@ -1,0 +1,6 @@
+[target.x86_64-apple-darwin]
+linker = "/usr/local/bin/cc-wrapper-mac"
+
+[target.x86_64-pc-windows-gnu]
+linker = "/usr/local/bin/cc-wrapper-win"
+
