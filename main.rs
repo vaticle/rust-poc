@@ -1,9 +1,14 @@
 extern crate cxx;
 extern crate rocksdb;
+extern crate typeqlgrammar;
 
 use rocksdb::{DB};
 use cxx::let_cxx_string;
 use std::pin::Pin;
+use typeqlgrammar::typeqlrustlexer;
+use typeqlgrammar::typeqlrustparser;
+use typeqlgrammar::typeqlrustlistener;
+use typeqlgrammar::typeqlrustvisitor;
 
 mod ortools;
 
@@ -83,8 +88,14 @@ fn poc_rocksdb() {
     }
 }
 
+fn poc_antlr() {
+    // let x = typeqlgrammar::typeqlrustlexer::TypeQLRustLexer::new();
+    // do something with ANTLR here
+}
+
 
 fn main() {
     poc_ortools();
     poc_rocksdb();
+    poc_antlr();
 }
