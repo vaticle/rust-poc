@@ -1,73 +1,38 @@
-load("@vaticle_dependencies//builder/antlr:rules.bzl", "python_grammar_adapter")
-load("@rules_antlr//antlr:antlr4.bzl", "antlr")
+#
+# Copyright (C) 2021 Vaticle
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
 
-load("@rules_rust//rust:rust.bzl", "rust_binary", "rust_library")
+load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
+load("@vaticle_bazel_distribution//crates:rules.bzl", "assemble_crate", "deploy_crate")
+load("//:deployment.bzl", "deployment")
 
-load("@vaticle_dependencies//builder/rust:rules.bzl", "rust_cxx_bridge")
-
-cc_library(
-    name = "bridge-wrapper",
-    hdrs = ["OrToolsWrapper.h"],
-    deps = select({
-       "@vaticle_dependencies//util/platform:is_mac": [
-           "@or_tools_mac//:lib",
-           "@or_tools_mac//:incl",
-       ],
-       "@vaticle_dependencies//util/platform:is_linux": [
-           "@or_tools_linux//:lib",
-           "@or_tools_linux//:incl",
-        ],
-    })
-)
-
-rust_cxx_bridge(
-    name = "bridge",
-    src = "ortools.rs",
-    deps = select({
-       "@vaticle_dependencies//util/platform:is_mac": [
-           "@or_tools_mac//:lib",
-           "@or_tools_mac//:incl",
-       ],
-       "@vaticle_dependencies//util/platform:is_linux": [
-           "@or_tools_linux//:lib",
-           "@or_tools_linux//:incl",
-        ],
-    }) + [":bridge-wrapper"],
-)
 
 rust_binary(
     name = "main",
-    srcs = [
-        "main.rs",
-        "ortools.rs",
-    ],
+    srcs = ["main.rs"],
     deps = [
-        "@vaticle_dependencies//library/crates:rocksdb",
-        "@vaticle_dependencies//library/crates:cxx",
-        ":bridge",
-        ":typeqlgrammar",
+        "//lib1:lib1",
     ]
 )
 
-python_grammar_adapter(
-    name = "rust-grammar",
-    input = "TypeQL.g4",
-    output = "TypeQLRust.g4",
-)
-
-antlr(
-    name = "typeqlgrammar-src",
-    srcs = [":rust-grammar"],
-    language = "Rust",
-    visitor = True,
-    package = "typeqlgrammar",
-)
-
-
-rust_library(
-    name = "typeqlgrammar",
-    srcs = [":typeqlgrammar-src"],
-    deps = [
-        "@vaticle_dependencies//library/crates:antlr_rust",
-    ]
+assemble_crate(
+    name = "assemble",
+    target = ":main",
+    description = "Hello, hello",
+    homepage = "https://github.com/vaticle/rust-poc",
+    license = "MIT",
+    repository = "https://github.com/vaticle/rust-poc",
 )
