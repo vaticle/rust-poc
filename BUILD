@@ -41,15 +41,7 @@ rust_binary(
         "@vaticle_dependencies//library/crates:rocksdb",
         "@vaticle_dependencies//library/crates:cxx",
         ":bridge",
-        ":typeqlgrammar",
     ]
 )
 
 
-rust_library(
-    name = "typeqlgrammar",
-    srcs = [":typeqlgrammar-src"],
-    deps = [
-        "@vaticle_dependencies//library/crates:antlr_rust",
-    ]
-)

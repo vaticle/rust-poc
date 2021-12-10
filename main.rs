@@ -1,6 +1,5 @@
 extern crate cxx;
 extern crate rocksdb;
-extern crate typeqlgrammar;
 
 use rocksdb::{DB};
 use cxx::let_cxx_string;
