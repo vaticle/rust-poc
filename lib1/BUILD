@@ -1,16 +1,22 @@
 load("@rules_rust//rust:rust.bzl", "rust_library")
-load("@vaticle_bazel_distribution//crates:rules.bzl", "rust_cargo_library")
+load("@vaticle_bazel_distribution//crates:rules.bzl", "rust_pkg_intellij")
+
+srcs = glob([
+    "lib1.rs",
+    "fruit/*.rs",
+])
 
 rust_library(
     name = "lib1",
-    srcs = ["lib.rs"],
+    srcs = srcs,
     visibility = ["//visibility:public"]
 )
 
-rust_cargo_library(
+rust_pkg_intellij(
     name = "pkg",
     target = ":lib1",
-    description = "Hello, hello",
+    srcs = srcs,
+    description = "Hello and goodbye (1)",
     homepage = "https://github.com/vaticle/rust-poc",
     license = "MIT",
     repository = "https://github.com/vaticle/rust-poc",
