@@ -16,6 +16,7 @@ rust_pkg_intellij(
     name = "pkg",
     target = ":lib2",
     srcs = srcs,
+    lib = "lib2.rs",
     description = "Hello and goodbye (2)",
     homepage = "https://github.com/vaticle/rust-poc",
     license = "MIT",

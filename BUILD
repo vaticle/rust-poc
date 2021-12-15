@@ -16,6 +16,7 @@ rust_pkg_intellij(
     name = "pkg",
     target = ":main",
     srcs = srcs,
+    bin = "main.rs",
     description = "Hello and goodbye repeatedly",
     homepage = "https://github.com/vaticle/rust-poc",
     license = "MIT",
