@@ -9,6 +9,9 @@ srcs = glob([
 rust_library(
     name = "lib2",
     srcs = srcs,
+    deps = [
+        "@vaticle_dependencies//library/crates:rand",
+    ],
     visibility = ["//visibility:public"]
 )
 
