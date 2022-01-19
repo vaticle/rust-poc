@@ -1,5 +1,4 @@
-load("@rules_rust//rust:rust.bzl", "rust_library")
-load("@vaticle_bazel_distribution//crates:rules.bzl", "rust_pkg_intellij")
+load("@rules_rust//rust:defs.bzl", "rust_library")
 
 srcs = glob([
     "lib2.rs",
@@ -13,15 +12,4 @@ rust_library(
         "@vaticle_dependencies//library/crates:rand",
     ],
     visibility = ["//visibility:public"]
-)
-
-rust_pkg_intellij(
-    name = "pkg",
-    target = ":lib2",
-    srcs = srcs,
-    lib = "lib2.rs",
-    description = "Hello and goodbye (2)",
-    homepage = "https://github.com/vaticle/rust-poc",
-    license = "MIT",
-    repository = "https://github.com/vaticle/rust-poc",
 )
